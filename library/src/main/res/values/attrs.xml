@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MaterialSpinner">
+        <attr name="ms_baseColor" format="integer"/>
+        <attr name="ms_highlightColor" format="integer"/>
+        <attr name="ms_errorColor" format="integer"/>
+        <attr name="ms_error" format="string"/>
+        <attr name="ms_hint" format="string"/>
+        <attr name="ms_floatingLabelText" format="string"/>
+        <attr name="ms_multiline" format="boolean"/>
+        <attr name="ms_nbErrorLines" format="integer"/>
+        <attr name="ms_typeface" format="string"/>
+
+    </declare-styleable>
+
+
+</resources>
