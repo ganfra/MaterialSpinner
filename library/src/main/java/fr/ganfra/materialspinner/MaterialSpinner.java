@@ -120,6 +120,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
 
     private void init(Context context, AttributeSet attrs) {
 
+
         initAttributes(context, attrs);
         initPaintObjects();
         initDimensions();
@@ -138,7 +139,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         TypedArray a = context.obtainStyledAttributes(new int[]{R.attr.colorControlNormal, R.attr.colorAccent});
         int defaultBaseColor = a.getColor(0, 0);
         int defaultHighlightColor = a.getColor(1, 0);
-        int defaultErrorColor = Color.RED;
+        int defaultErrorColor = Color.parseColor("#E7492E");
         a.recycle();
 
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.MaterialSpinner);
@@ -246,7 +247,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
 
     private void hideFloatingLabel() {
         if (floatingLabelAnimator != null) {
-            floatingLabelVisible = false;
+            floatingLabelVisible = false ;
             floatingLabelAnimator.reverse();
         }
     }
@@ -268,7 +269,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
     }
 
 
-    private void startErrorLineAnimator(float destLines) {
+    private void startErrorMultilineAnimator(float destLines) {
         if (errorLabelAnimator == null) {
             errorLabelAnimator = ObjectAnimator.ofFloat(this, "currentNbErrorLines", destLines);
 
@@ -440,19 +441,22 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         OnItemSelectedListener onItemSelectedListener = new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (hint != null || floatingLabelText != null) {
+                    if (!floatingLabelVisible && position != 0 ) {
+                        showFloatingLabel();
+                    } else if (floatingLabelVisible && position == 0) {
+                        hideFloatingLabel();
+                    }
+                }
+
                 if (position != lastPosition) {
                     setError(null);
                 }
+                lastPosition = position ;
 
-                if (hint != null) {
-                    if (position == 0) {
-                        hideFloatingLabel();
-                    } else if (!floatingLabelVisible) {
-                        showFloatingLabel();
-                    }
-                    position--;
-                }
                 if (listener != null) {
+                    position = hint != null ? position -1 : position ;
                     listener.onItemSelected(parent, view, position, id);
                 }
             }
@@ -544,7 +548,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         }
 
         if (multiline) {
-            startErrorLineAnimator(prepareBottomPadding());
+            startErrorMultilineAnimator(prepareBottomPadding());
         } else if (needScrollingAnimation()) {
             startErrorScrollingAnimator();
         }
@@ -671,7 +675,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
 
             //workaround to have multiple types in spinner
             if(convertView != null) {
-                convertView = (convertView.getTag() != null && (Integer) convertView.getTag() != HINT_TYPE) ? convertView : null;
+                convertView = (convertView.getTag() != null && convertView.getTag() instanceof Integer && (Integer) convertView.getTag() != HINT_TYPE) ? convertView : null;
             }
             position = hint != null ? position - 1 : position;
             return isDropDownView ? mSpinnerAdapter.getDropDownView(position, convertView, parent) :
