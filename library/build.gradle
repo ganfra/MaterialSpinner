@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+    compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
+    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
 
     defaultConfig {
         minSdkVersion 9
-        targetSdkVersion 21
+        targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
     }
     buildTypes {
         release {
@@ -20,4 +20,7 @@ android {
         compile 'com.nineoldandroids:library:2.4.0'
         compile 'com.android.support:appcompat-v7:22.0.0'
     }
+
+
+    apply from: '../maven_push.gradle'
 }
