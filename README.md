@@ -11,7 +11,7 @@ Add floating label text, hint and error messages.
 Use this dependency in your build.gradle file to reference this library in your project
 
 ```groovy
-
+compile 'com.github.ganfra:material-spinner:1.0.0'
 ```
 
 ## Usages
