@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
-    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
 
     defaultConfig {
         applicationId "fr.ganfra.materialspinner.sample"
         minSdkVersion 9
-        targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
-        versionCode Integer.parseInt(project.VERSION_CODE)
-        versionName project.VERSION_NAME
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0.0"
     }
     buildTypes {
         release {
