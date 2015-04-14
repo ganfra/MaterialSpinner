@@ -11,6 +11,8 @@
         <attr name="ms_nbErrorLines" format="integer"/>
         <attr name="ms_typeface" format="string"/>
         <attr name="ms_alignLabels" format="boolean"/>
+        <attr name="ms_thickness" format="integer"/>
+
 
     </declare-styleable>
 

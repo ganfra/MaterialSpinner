@@ -76,6 +76,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
     private ObjectAnimator floatingLabelAnimator;
     private boolean isSelected;
     private boolean floatingLabelVisible;
+    private int baseAlpha ;
 
 
     //AttributeSet
@@ -88,6 +89,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
     private boolean multiline;
     private Typeface typeface;
     private boolean alignLabels ;
+    private int thickness ;
 
 
     /*
@@ -153,6 +155,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         multiline = array.getBoolean(R.styleable.MaterialSpinner_ms_multiline, true);
         minNbErrorLines = array.getInt(R.styleable.MaterialSpinner_ms_nbErrorLines, 1);
         alignLabels = array.getBoolean(R.styleable.MaterialSpinner_ms_alignLabels,true);
+        thickness = array.getInteger(R.styleable.MaterialSpinner_ms_thickness,1);
 
         String typefacePath = array.getString(R.styleable.MaterialSpinner_ms_typeface);
         if (typefacePath != null) {
@@ -181,6 +184,9 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         if (typeface != null) {
             textPaint.setTypeface(typeface);
         }
+        textPaint.setColor(baseColor);
+        baseAlpha = textPaint.getAlpha();
+
         selectorPath = new Path();
         selectorPath.setFillType(Path.FillType.EVEN_ODD);
 
@@ -333,7 +339,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
 
         int startX = 0;
         int endX = getWidth();
-        int lineHeight = dpToPx(2);
+        int lineHeight = dpToPx(thickness);
 
         int startYLine = getHeight() - getPaddingBottom() + underlineTopSpacing;
         int startYErrorLabel = startYLine + errorLabelSpacing + lineHeight ;
@@ -376,7 +382,9 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
             } else {
                 textPaint.setColor(baseColor);
             }
-            textPaint.setAlpha((int) ((0.8 * floatingLabelPercent + 0.2) * 255 * floatingLabelPercent));
+            if(floatingLabelAnimator.isRunning() || !floatingLabelVisible) {
+                textPaint.setAlpha((int) ((0.8 * floatingLabelPercent + 0.2) * baseAlpha * floatingLabelPercent));
+            }
             String textToDraw = floatingLabelText != null ? floatingLabelText.toString() : hint.toString();
             canvas.drawText(textToDraw, startX + rightLeftSpinnerPadding, startYFloatingLabel, textPaint);
         }
@@ -494,6 +502,8 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
 
     public void setBaseColor(int baseColor) {
         this.baseColor = baseColor;
+        textPaint.setColor(baseColor);
+        baseAlpha = textPaint.getAlpha() ;
         invalidate();
     }
 
