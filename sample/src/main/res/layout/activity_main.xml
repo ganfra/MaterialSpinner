@@ -30,6 +30,7 @@
     <fr.ganfra.materialspinner.MaterialSpinner
         android:id="@+id/spinner4"
         app:ms_multiline="false"
+        app:ms_alignLabels="false"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 
