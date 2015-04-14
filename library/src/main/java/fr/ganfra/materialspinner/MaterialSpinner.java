@@ -87,6 +87,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
     private CharSequence floatingLabelText;
     private boolean multiline;
     private Typeface typeface;
+    private boolean alignLabels ;
 
 
     /*
@@ -151,6 +152,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         floatingLabelText = array.getString(R.styleable.MaterialSpinner_ms_floatingLabelText);
         multiline = array.getBoolean(R.styleable.MaterialSpinner_ms_multiline, true);
         minNbErrorLines = array.getInt(R.styleable.MaterialSpinner_ms_nbErrorLines, 1);
+        alignLabels = array.getBoolean(R.styleable.MaterialSpinner_ms_alignLabels,true);
 
         String typefacePath = array.getString(R.styleable.MaterialSpinner_ms_typeface);
         if (typefacePath != null) {
@@ -211,7 +213,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         underlineBottomSpacing = getResources().getDimensionPixelSize(R.dimen.underline_bottom_spacing);
         floatingLabelTopSpacing = getResources().getDimensionPixelSize(R.dimen.floating_label_top_spacing);
         floatingLabelBottomSpacing = getResources().getDimensionPixelSize(R.dimen.floating_label_bottom_spacing);
-        rightLeftSpinnerPadding = getResources().getDimensionPixelSize(R.dimen.right_left_spinner_padding);
+        rightLeftSpinnerPadding = alignLabels? getResources().getDimensionPixelSize(R.dimen.right_left_spinner_padding) : 0 ;
         floatingLabelInsideSpacing = getResources().getDimensionPixelSize(R.dimen.floating_label_inside_spacing);
         errorLabelSpacing = getResources().getDimensionPixelSize(R.dimen.error_label_spacing);
 
