@@ -36,7 +36,8 @@ In the xml :
         app:ms_baseColor="@color/base"
         app:ms_highlightColor="@color/highlight"
         app:ms_errorColor="@color/error"
-        app:ms_typeface="typeface"
+        app:ms_typeface="typeface.ttf"
+        app:ms_thickness=2
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 ```
