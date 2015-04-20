@@ -3,7 +3,7 @@
 
 Spinner with Material Design - Down to API 9
 
-This library provides you a Spinner with the Material style. You can use it like any "normal" Spinner. 
+This library provides you a Spinner with the Material style. You can use it like any regular Spinner. 
 Add floating label text, hint and error messages.
 
 ## Screenshots
@@ -46,7 +46,7 @@ In the xml :
 You can set a hint and a floating label text. If no floating label text is provided, the hint will be set instead.
 
 
-Java side, you use it like a normal spinner, setting an adapter to it.
+Java side, you use it like a regular spinner, setting an adapter to it.
 ```java
  String[] ITEMS = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6"};
  ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ITEMS);
