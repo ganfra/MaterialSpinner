@@ -86,6 +86,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
     private CharSequence error;
     private CharSequence hint;
     private CharSequence floatingLabelText;
+    private int floatingLabelColor;
     private boolean multiline;
     private Typeface typeface;
     private boolean alignLabels;
@@ -153,6 +154,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         error = array.getString(R.styleable.MaterialSpinner_ms_error);
         hint = array.getString(R.styleable.MaterialSpinner_ms_hint);
         floatingLabelText = array.getString(R.styleable.MaterialSpinner_ms_floatingLabelText);
+        floatingLabelColor = array.getColor(R.styleable.MaterialSpinner_ms_floatingLabelColor, baseColor);
         multiline = array.getBoolean(R.styleable.MaterialSpinner_ms_multiline, true);
         minNbErrorLines = array.getInt(R.styleable.MaterialSpinner_ms_nbErrorLines, 1);
         alignLabels = array.getBoolean(R.styleable.MaterialSpinner_ms_alignLabels, true);
@@ -384,7 +386,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
             if (isSelected) {
                 textPaint.setColor(highlightColor);
             } else {
-                textPaint.setColor(baseColor);
+                textPaint.setColor(floatingLabelColor);
             }
             if (floatingLabelAnimator.isRunning() || !floatingLabelVisible) {
                 textPaint.setAlpha((int) ((0.8 * floatingLabelPercent + 0.2) * baseAlpha * floatingLabelPercent));
