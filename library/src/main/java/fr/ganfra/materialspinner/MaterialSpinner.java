@@ -76,7 +76,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
     private ObjectAnimator floatingLabelAnimator;
     private boolean isSelected;
     private boolean floatingLabelVisible;
-    private int baseAlpha ;
+    private int baseAlpha;
 
 
     //AttributeSet
@@ -88,8 +88,9 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
     private CharSequence floatingLabelText;
     private boolean multiline;
     private Typeface typeface;
-    private boolean alignLabels ;
-    private int thickness ;
+    private boolean alignLabels;
+    private float thickness;
+    private float thicknessError;
 
 
     /*
@@ -154,8 +155,9 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         floatingLabelText = array.getString(R.styleable.MaterialSpinner_ms_floatingLabelText);
         multiline = array.getBoolean(R.styleable.MaterialSpinner_ms_multiline, true);
         minNbErrorLines = array.getInt(R.styleable.MaterialSpinner_ms_nbErrorLines, 1);
-        alignLabels = array.getBoolean(R.styleable.MaterialSpinner_ms_alignLabels,true);
-        thickness = array.getInteger(R.styleable.MaterialSpinner_ms_thickness,1);
+        alignLabels = array.getBoolean(R.styleable.MaterialSpinner_ms_alignLabels, true);
+        thickness = array.getDimension(R.styleable.MaterialSpinner_ms_thickness, 1);
+        thicknessError = array.getDimension(R.styleable.MaterialSpinner_ms_thickness_error, 2);
 
         String typefacePath = array.getString(R.styleable.MaterialSpinner_ms_typeface);
         if (typefacePath != null) {
@@ -219,7 +221,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         underlineBottomSpacing = getResources().getDimensionPixelSize(R.dimen.underline_bottom_spacing);
         floatingLabelTopSpacing = getResources().getDimensionPixelSize(R.dimen.floating_label_top_spacing);
         floatingLabelBottomSpacing = getResources().getDimensionPixelSize(R.dimen.floating_label_bottom_spacing);
-        rightLeftSpinnerPadding = alignLabels? getResources().getDimensionPixelSize(R.dimen.right_left_spinner_padding) : 0 ;
+        rightLeftSpinnerPadding = alignLabels ? getResources().getDimensionPixelSize(R.dimen.right_left_spinner_padding) : 0;
         floatingLabelInsideSpacing = getResources().getDimensionPixelSize(R.dimen.floating_label_inside_spacing);
         errorLabelSpacing = getResources().getDimensionPixelSize(R.dimen.error_label_spacing);
 
@@ -255,7 +257,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
 
     private void hideFloatingLabel() {
         if (floatingLabelAnimator != null) {
-            floatingLabelVisible = false ;
+            floatingLabelVisible = false;
             floatingLabelAnimator.reverse();
         }
     }
@@ -294,7 +296,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
      * **********************************************************************************
     */
 
-    private int dpToPx(int dp) {
+    private int dpToPx(float dp) {
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, displayMetrics);
         return Math.round(px);
@@ -339,19 +341,20 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
 
         int startX = 0;
         int endX = getWidth();
-        int lineHeight = dpToPx(thickness);
+        int lineHeight;
 
         int startYLine = getHeight() - getPaddingBottom() + underlineTopSpacing;
-        int startYErrorLabel = startYLine + errorLabelSpacing + lineHeight ;
         int startYFloatingLabel = (int) (getPaddingTop() - floatingLabelPercent * floatingLabelBottomSpacing);
 
         if (error != null) {
+            lineHeight = dpToPx(thicknessError);
+            int startYErrorLabel = startYLine + errorLabelSpacing + lineHeight;
             paint.setColor(errorColor);
             textPaint.setColor(errorColor);
             //Error Label Drawing
             if (multiline) {
                 canvas.save();
-                canvas.translate(startX+rightLeftSpinnerPadding, startYErrorLabel - errorLabelSpacing);
+                canvas.translate(startX + rightLeftSpinnerPadding, startYErrorLabel - errorLabelSpacing);
                 staticLayout.draw(canvas);
                 canvas.restore();
 
@@ -365,6 +368,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
             }
 
         } else {
+            lineHeight = dpToPx(thickness);
             if (isSelected) {
                 paint.setColor(highlightColor);
             } else {
@@ -382,7 +386,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
             } else {
                 textPaint.setColor(baseColor);
             }
-            if(floatingLabelAnimator.isRunning() || !floatingLabelVisible) {
+            if (floatingLabelAnimator.isRunning() || !floatingLabelVisible) {
                 textPaint.setAlpha((int) ((0.8 * floatingLabelPercent + 0.2) * baseAlpha * floatingLabelPercent));
             }
             String textToDraw = floatingLabelText != null ? floatingLabelText.toString() : hint.toString();
@@ -453,7 +457,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 if (hint != null || floatingLabelText != null) {
-                    if (!floatingLabelVisible && position != 0 ) {
+                    if (!floatingLabelVisible && position != 0) {
                         showFloatingLabel();
                     } else if (floatingLabelVisible && position == 0) {
                         hideFloatingLabel();
@@ -463,10 +467,10 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
                 if (position != lastPosition) {
                     setError(null);
                 }
-                lastPosition = position ;
+                lastPosition = position;
 
                 if (listener != null) {
-                    position = hint != null ? position -1 : position ;
+                    position = hint != null ? position - 1 : position;
                     listener.onItemSelected(parent, view, position, id);
                 }
             }
@@ -503,7 +507,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
     public void setBaseColor(int baseColor) {
         this.baseColor = baseColor;
         textPaint.setColor(baseColor);
-        baseAlpha = textPaint.getAlpha() ;
+        baseAlpha = textPaint.getAlpha();
         invalidate();
     }
 
@@ -646,7 +650,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         @Override
         public int getViewTypeCount() {
             int viewTypeCount = mSpinnerAdapter.getViewTypeCount();
-            return hint != null ? viewTypeCount + 1 : viewTypeCount;
+            return viewTypeCount;
         }
 
         @Override
@@ -686,7 +690,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
             }
 
             //workaround to have multiple types in spinner
-            if(convertView != null) {
+            if (convertView != null) {
                 convertView = (convertView.getTag() != null && convertView.getTag() instanceof Integer && (Integer) convertView.getTag() != HINT_TYPE) ? convertView : null;
             }
             position = hint != null ? position - 1 : position;
