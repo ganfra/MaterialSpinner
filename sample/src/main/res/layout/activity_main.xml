@@ -19,6 +19,7 @@
             app:ms_floatingLabelColor="#00FF00"
             app:ms_floatingLabelText="floating label"
             app:ms_hint="hint"
+            app:ms_arrowSize="16dp"
             app:ms_multiline="true" />
 
         <fr.ganfra.materialspinner.MaterialSpinner

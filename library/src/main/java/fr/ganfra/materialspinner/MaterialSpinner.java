@@ -31,7 +31,7 @@ import com.nineoldandroids.animation.ValueAnimator;
 
 public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUpdateListener {
 
-    public static final int ARROW_WIDTH_DP = 16;
+    public static final int ARROW_WIDTH_DP = 12;
 
     private static final String TAG = MaterialSpinner.class.getSimpleName();
 
@@ -94,6 +94,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
     private float thickness;
     private float thicknessError;
     private int arrowColor;
+    private float arrowSize;
 
 
     /*
@@ -163,6 +164,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         thickness = array.getDimension(R.styleable.MaterialSpinner_ms_thickness, 1);
         thicknessError = array.getDimension(R.styleable.MaterialSpinner_ms_thickness_error, 2);
         arrowColor = array.getColor(R.styleable.MaterialSpinner_ms_arrowColor, baseColor);
+        arrowSize = array.getDimension(R.styleable.MaterialSpinner_ms_arrowSize, dpToPx(ARROW_WIDTH_DP));
 
         String typefacePath = array.getString(R.styleable.MaterialSpinner_ms_typeface);
         if (typefacePath != null) {
@@ -228,7 +230,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         floatingLabelBottomSpacing = getResources().getDimensionPixelSize(R.dimen.floating_label_bottom_spacing);
         rightLeftSpinnerPadding = alignLabels ? getResources().getDimensionPixelSize(R.dimen.right_left_spinner_padding) : 0;
         floatingLabelInsideSpacing = getResources().getDimensionPixelSize(R.dimen.floating_label_inside_spacing);
-        errorLabelSpacing = getResources().getDimensionPixelSize(R.dimen.error_label_spacing);
+        errorLabelSpacing = (int) getResources().getDimension(R.dimen.error_label_spacing);
 
     }
 
@@ -424,8 +426,8 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         Point point3 = selectorPoints[2];
 
         point1.set(posX, posY);
-        point2.set(posX - dpToPx(ARROW_WIDTH_DP), posY);
-        point3.set(posX - dpToPx(ARROW_WIDTH_DP / 2), posY + dpToPx(ARROW_WIDTH_DP / 2));
+        point2.set((int) (posX - (arrowSize)), posY);
+        point3.set((int) (posX - (arrowSize / 2)), (int) (posY + (arrowSize / 2)));
 
         selectorPath.reset();
         selectorPath.moveTo(point1.x, point1.y);
