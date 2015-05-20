@@ -39,11 +39,13 @@ public class MainActivity extends ActionBarActivity {
         initSpinnerNoHintNoFloatingLabel();
         initSpinnerMultiline();
         initSpinnerScrolling();
+
     }
 
     private void initSpinnerHintAndFloatingLabel() {
         spinner1 = (MaterialSpinner) findViewById(R.id.spinner1);
         spinner1.setAdapter(adapter);
+        spinner1.setPaddingSafe(0,0,0,0);
     }
 
     private void initSpinnerOnlyHint() {
