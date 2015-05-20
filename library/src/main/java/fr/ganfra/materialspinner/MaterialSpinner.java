@@ -313,7 +313,11 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
     }
 
     private void setPadding() {
-        super.setPadding(innerPaddingLeft, innerPaddingTop + extraPaddingTop, innerPaddingRight, innerPaddingBottom + extraPaddingBottom);
+        int left = innerPaddingLeft;
+        int top = innerPaddingTop + extraPaddingTop;
+        int right = innerPaddingRight;
+        int bottom = innerPaddingBottom + extraPaddingBottom;
+        super.setPadding(left, top, right, bottom);
     }
 
     private boolean needScrollingAnimation() {
@@ -588,12 +592,6 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
 
     @Override
     public void setPadding(int left, int top, int right, int bottom) {
-
-        innerPaddingRight = right;
-        innerPaddingLeft = left;
-        innerPaddingTop = top;
-        innerPaddingBottom = bottom;
-
         setPadding();
     }
 
