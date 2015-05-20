@@ -39,12 +39,21 @@ In the xml :
         app:ms_highlightColor="@color/highlight"
         app:ms_errorColor="@color/error"
         app:ms_typeface="typeface.ttf"
-        app:ms_thickness=2
+        app:ms_thickness="@integer/int2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 ```
 You can set a hint and a floating label text. If no floating label text is provided, the hint will be set instead.
 
+For `ms_thickness` you have to declare the value as integer resource. I.e declare a file in res/values named `integers.xml`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <integer name="int1">1</integer>
+    <integer name="int2">2</integer>
+</resources>
+```
 
 Java side, you use it like a regular spinner, setting an adapter to it.
 ```java
