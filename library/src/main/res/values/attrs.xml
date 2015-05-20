@@ -14,5 +14,6 @@
         <attr name="ms_alignLabels" format="boolean"/>
         <attr name="ms_thickness" format="dimension"/>
         <attr name="ms_thickness_error" format="dimension"/>
+        <attr name="ms_arrowColor" format="color"/>
     </declare-styleable>
 </resources>

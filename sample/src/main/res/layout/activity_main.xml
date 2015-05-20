@@ -15,7 +15,8 @@
         app:ms_floatingLabelColor="#00FF00"
         app:ms_floatingLabelText="floating label"
         app:ms_hint="hint"
-        app:ms_multiline="true" />
+        app:ms_multiline="true"
+        app:ms_arrowColor="#0000FF"/>
 
     <fr.ganfra.materialspinner.MaterialSpinner
         android:id="@+id/spinner2"
@@ -40,7 +41,6 @@
         android:id="@+id/spinner5"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
-
 
     <Button
         android:layout_width="fill_parent"

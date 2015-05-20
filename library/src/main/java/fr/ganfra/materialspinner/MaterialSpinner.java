@@ -31,8 +31,9 @@ import com.nineoldandroids.animation.ValueAnimator;
 
 public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUpdateListener {
 
-    private static final String TAG = MaterialSpinner.class.getSimpleName();
+    public static final int ARROW_WIDTH_DP = 16;
 
+    private static final String TAG = MaterialSpinner.class.getSimpleName();
 
     //Paint objects
     private Paint paint;
@@ -92,6 +93,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
     private boolean alignLabels;
     private float thickness;
     private float thicknessError;
+    private int arrowColor;
 
 
     /*
@@ -160,6 +162,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         alignLabels = array.getBoolean(R.styleable.MaterialSpinner_ms_alignLabels, true);
         thickness = array.getDimension(R.styleable.MaterialSpinner_ms_thickness, 1);
         thicknessError = array.getDimension(R.styleable.MaterialSpinner_ms_thickness_error, 2);
+        arrowColor = array.getColor(R.styleable.MaterialSpinner_ms_arrowColor, baseColor);
 
         String typefacePath = array.getString(R.styleable.MaterialSpinner_ms_typeface);
         if (typefacePath != null) {
@@ -304,6 +307,11 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         return Math.round(px);
     }
 
+    private float pxToDp(float px) {
+        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+        return px * displayMetrics.density;
+    }
+
     private void setPadding() {
         super.setPadding(innerPaddingLeft, innerPaddingTop + extraPaddingTop, innerPaddingRight, innerPaddingBottom + extraPaddingBottom);
     }
@@ -401,11 +409,10 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
     }
 
     private void drawSelector(Canvas canvas, int posX, int posY) {
-
         if (isSelected) {
             paint.setColor(highlightColor);
         } else {
-            paint.setColor(baseColor);
+            paint.setColor(arrowColor);
         }
 
         Point point1 = selectorPoints[0];
@@ -413,8 +420,8 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         Point point3 = selectorPoints[2];
 
         point1.set(posX, posY);
-        point2.set(posX - 18, posY);
-        point3.set(posX - 9, posY + 9);
+        point2.set(posX - dpToPx(ARROW_WIDTH_DP), posY);
+        point3.set(posX - dpToPx(ARROW_WIDTH_DP / 2), posY + dpToPx(ARROW_WIDTH_DP / 2));
 
         selectorPath.reset();
         selectorPath.moveTo(point1.x, point1.y);
@@ -422,10 +429,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         selectorPath.lineTo(point3.x, point3.y);
         selectorPath.close();
         canvas.drawPath(selectorPath, paint);
-
     }
-
-
 
     /*
      * **********************************************************************************
