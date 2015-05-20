@@ -31,7 +31,7 @@ import com.nineoldandroids.animation.ValueAnimator;
 
 public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUpdateListener {
 
-    public static final int ARROW_WIDTH_DP = 12;
+    public static final int DEFAULT_ARROW_WIDTH_DP = 12;
 
     private static final String TAG = MaterialSpinner.class.getSimpleName();
 
@@ -164,7 +164,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         thickness = array.getDimension(R.styleable.MaterialSpinner_ms_thickness, 1);
         thicknessError = array.getDimension(R.styleable.MaterialSpinner_ms_thickness_error, 2);
         arrowColor = array.getColor(R.styleable.MaterialSpinner_ms_arrowColor, baseColor);
-        arrowSize = array.getDimension(R.styleable.MaterialSpinner_ms_arrowSize, dpToPx(ARROW_WIDTH_DP));
+        arrowSize = array.getDimension(R.styleable.MaterialSpinner_ms_arrowSize, dpToPx(DEFAULT_ARROW_WIDTH_DP));
 
         String typefacePath = array.getString(R.styleable.MaterialSpinner_ms_typeface);
         if (typefacePath != null) {
