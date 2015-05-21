@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
@@ -136,10 +137,10 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         initPadding();
         initFloatingLabelAnimator();
         initOnItemSelectedListener();
+        initAdapter(context);
 
         //Erase the drawable selector not to be affected by new size (extra paddings)
         setBackgroundResource(R.drawable.my_background);
-
 
     }
 
@@ -233,6 +234,11 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         floatingLabelInsideSpacing = getResources().getDimensionPixelSize(R.dimen.floating_label_inside_spacing);
         errorLabelSpacing = (int) getResources().getDimension(R.dimen.error_label_spacing);
 
+    }
+
+    private void initAdapter(final Context context){
+        final SpinnerAdapter adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item);
+        setAdapter(adapter);
     }
 
     private void initOnItemSelectedListener() {
@@ -444,18 +450,17 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
      * **********************************************************************************
     */
 
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN: {
+            case MotionEvent.ACTION_DOWN:
                 isSelected = true;
                 break;
-            }
-            case MotionEvent.ACTION_UP: {
+
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
                 isSelected = false;
                 break;
-            }
         }
         invalidate();
         return super.onTouchEvent(event);
@@ -594,7 +599,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
     }
 
     /**
-      @deprecated {use @link #setPaddingSafe(int, int, int, int)} to keep internal computation OK
+     * @deprecated {use @link #setPaddingSafe(int, int, int, int)} to keep internal computation OK
      */
     @Deprecated
     @Override
@@ -675,7 +680,8 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
 
         @Override
         public int getItemViewType(int position) {
-            return (hint != null && position == 0) ? HINT_TYPE : mSpinnerAdapter.getItemViewType(position);
+            position = hint != null ? position-1 : position ;
+            return (position == -1) ? HINT_TYPE : mSpinnerAdapter.getItemViewType(position);
         }
 
         @Override
@@ -686,12 +692,14 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
 
         @Override
         public Object getItem(int position) {
-            return (hint != null && position == 0) ? hint : mSpinnerAdapter.getItem(position);
+            position = hint != null ? position - 1 : position;
+            return (position == -1) ? hint : mSpinnerAdapter.getItem(position);
         }
 
         @Override
         public long getItemId(int position) {
-            return (hint != null && position == 0) ? 0 : mSpinnerAdapter.getItemId(position);
+            position = hint != null ? position - 1 : position;
+            return (position == -1) ? 0 : mSpinnerAdapter.getItemId(position);
         }
 
         @Override
@@ -732,7 +740,5 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
 
             return textView;
         }
-
-
     }
 }
