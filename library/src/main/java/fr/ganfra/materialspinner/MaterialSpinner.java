@@ -32,8 +32,9 @@ import com.nineoldandroids.animation.ValueAnimator;
 
 public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUpdateListener {
 
-    private static final String TAG = MaterialSpinner.class.getSimpleName();
+    public static final int DEFAULT_ARROW_WIDTH_DP = 12;
 
+    private static final String TAG = MaterialSpinner.class.getSimpleName();
 
     //Paint objects
     private Paint paint;
@@ -87,10 +88,14 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
     private CharSequence error;
     private CharSequence hint;
     private CharSequence floatingLabelText;
+    private int floatingLabelColor;
     private boolean multiline;
     private Typeface typeface;
     private boolean alignLabels;
-    private int thickness;
+    private float thickness;
+    private float thicknessError;
+    private int arrowColor;
+    private float arrowSize;
 
 
     /*
@@ -153,10 +158,14 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         error = array.getString(R.styleable.MaterialSpinner_ms_error);
         hint = array.getString(R.styleable.MaterialSpinner_ms_hint);
         floatingLabelText = array.getString(R.styleable.MaterialSpinner_ms_floatingLabelText);
+        floatingLabelColor = array.getColor(R.styleable.MaterialSpinner_ms_floatingLabelColor, baseColor);
         multiline = array.getBoolean(R.styleable.MaterialSpinner_ms_multiline, true);
         minNbErrorLines = array.getInt(R.styleable.MaterialSpinner_ms_nbErrorLines, 1);
         alignLabels = array.getBoolean(R.styleable.MaterialSpinner_ms_alignLabels, true);
-        thickness = array.getInteger(R.styleable.MaterialSpinner_ms_thickness, 1);
+        thickness = array.getDimension(R.styleable.MaterialSpinner_ms_thickness, 1);
+        thicknessError = array.getDimension(R.styleable.MaterialSpinner_ms_thickness_error, 2);
+        arrowColor = array.getColor(R.styleable.MaterialSpinner_ms_arrowColor, baseColor);
+        arrowSize = array.getDimension(R.styleable.MaterialSpinner_ms_arrowSize, dpToPx(DEFAULT_ARROW_WIDTH_DP));
 
         String typefacePath = array.getString(R.styleable.MaterialSpinner_ms_typeface);
         if (typefacePath != null) {
@@ -222,7 +231,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         floatingLabelBottomSpacing = getResources().getDimensionPixelSize(R.dimen.floating_label_bottom_spacing);
         rightLeftSpinnerPadding = alignLabels ? getResources().getDimensionPixelSize(R.dimen.right_left_spinner_padding) : 0;
         floatingLabelInsideSpacing = getResources().getDimensionPixelSize(R.dimen.floating_label_inside_spacing);
-        errorLabelSpacing = getResources().getDimensionPixelSize(R.dimen.error_label_spacing);
+        errorLabelSpacing = (int) getResources().getDimension(R.dimen.error_label_spacing);
 
     }
 
@@ -295,14 +304,23 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
      * **********************************************************************************
     */
 
-    private int dpToPx(int dp) {
+    private int dpToPx(float dp) {
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, displayMetrics);
         return Math.round(px);
     }
 
+    private float pxToDp(float px) {
+        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+        return px * displayMetrics.density;
+    }
+
     private void setPadding() {
-        super.setPadding(innerPaddingLeft, innerPaddingTop + extraPaddingTop, innerPaddingRight, innerPaddingBottom + extraPaddingBottom);
+        int left = innerPaddingLeft;
+        int top = innerPaddingTop + extraPaddingTop;
+        int right = innerPaddingRight;
+        int bottom = innerPaddingBottom + extraPaddingBottom;
+        super.setPadding(left, top, right, bottom);
     }
 
     private boolean needScrollingAnimation() {
@@ -340,13 +358,14 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
 
         int startX = 0;
         int endX = getWidth();
-        int lineHeight = dpToPx(thickness);
+        int lineHeight;
 
         int startYLine = getHeight() - getPaddingBottom() + underlineTopSpacing;
-        int startYErrorLabel = startYLine + errorLabelSpacing + lineHeight;
         int startYFloatingLabel = (int) (getPaddingTop() - floatingLabelPercent * floatingLabelBottomSpacing);
 
         if (error != null) {
+            lineHeight = dpToPx(thicknessError);
+            int startYErrorLabel = startYLine + errorLabelSpacing + lineHeight;
             paint.setColor(errorColor);
             textPaint.setColor(errorColor);
             //Error Label Drawing
@@ -366,6 +385,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
             }
 
         } else {
+            lineHeight = dpToPx(thickness);
             if (isSelected) {
                 paint.setColor(highlightColor);
             } else {
@@ -381,7 +401,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
             if (isSelected) {
                 textPaint.setColor(highlightColor);
             } else {
-                textPaint.setColor(baseColor);
+                textPaint.setColor(floatingLabelColor);
             }
             if (floatingLabelAnimator.isRunning() || !floatingLabelVisible) {
                 textPaint.setAlpha((int) ((0.8 * floatingLabelPercent + 0.2) * baseAlpha * floatingLabelPercent));
@@ -396,11 +416,10 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
     }
 
     private void drawSelector(Canvas canvas, int posX, int posY) {
-
         if (isSelected) {
             paint.setColor(highlightColor);
         } else {
-            paint.setColor(baseColor);
+            paint.setColor(arrowColor);
         }
 
         Point point1 = selectorPoints[0];
@@ -408,8 +427,8 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         Point point3 = selectorPoints[2];
 
         point1.set(posX, posY);
-        point2.set(posX - 18, posY);
-        point3.set(posX - 9, posY + 9);
+        point2.set((int) (posX - (arrowSize)), posY);
+        point3.set((int) (posX - (arrowSize / 2)), (int) (posY + (arrowSize / 2)));
 
         selectorPath.reset();
         selectorPath.moveTo(point1.x, point1.y);
@@ -417,10 +436,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         selectorPath.lineTo(point3.x, point3.y);
         selectorPath.close();
         canvas.drawPath(selectorPath, paint);
-
     }
-
-
 
     /*
      * **********************************************************************************
@@ -588,7 +604,6 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
 
 
     public void setPaddingSafe(int left, int top, int right, int bottom) {
-
         innerPaddingRight = right;
         innerPaddingLeft = left;
         innerPaddingTop = top;
@@ -655,7 +670,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
                 return 1;
             }
             int viewTypeCount = mSpinnerAdapter.getViewTypeCount();
-            return hint != null ? viewTypeCount + 1 : viewTypeCount;
+            return viewTypeCount;
         }
 
         @Override
