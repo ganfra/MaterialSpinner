@@ -3,7 +3,6 @@ package fr.ganfra.materialspinner;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
@@ -86,6 +85,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
     private int baseColor;
     private int highlightColor;
     private int errorColor;
+    private int disabledColor ;
     private CharSequence error;
     private CharSequence hint;
     private CharSequence floatingLabelText;
@@ -149,13 +149,15 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         TypedArray a = context.obtainStyledAttributes(new int[]{R.attr.colorControlNormal, R.attr.colorAccent});
         int defaultBaseColor = a.getColor(0, 0);
         int defaultHighlightColor = a.getColor(1, 0);
-        int defaultErrorColor = Color.parseColor("#E7492E");
+        int defaultErrorColor = context.getResources().getColor(R.color.error_color);
+
         a.recycle();
 
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.MaterialSpinner);
         baseColor = array.getColor(R.styleable.MaterialSpinner_ms_baseColor, defaultBaseColor);
         highlightColor = array.getColor(R.styleable.MaterialSpinner_ms_highlightColor, defaultHighlightColor);
         errorColor = array.getColor(R.styleable.MaterialSpinner_ms_errorColor, defaultErrorColor);
+        disabledColor = context.getResources().getColor(R.color.disabled_color);
         error = array.getString(R.styleable.MaterialSpinner_ms_error);
         hint = array.getString(R.styleable.MaterialSpinner_ms_hint);
         floatingLabelText = array.getString(R.styleable.MaterialSpinner_ms_floatingLabelText);
@@ -236,7 +238,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
 
     }
 
-    private void initAdapter(final Context context){
+    private void initAdapter(final Context context) {
         final SpinnerAdapter adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item);
         setAdapter(adapter);
     }
@@ -395,7 +397,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
             if (isSelected) {
                 paint.setColor(highlightColor);
             } else {
-                paint.setColor(baseColor);
+                paint.setColor(isEnabled() ? baseColor : disabledColor);
             }
         }
 
@@ -407,7 +409,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
             if (isSelected) {
                 textPaint.setColor(highlightColor);
             } else {
-                textPaint.setColor(floatingLabelColor);
+                textPaint.setColor(isEnabled() ? floatingLabelColor : disabledColor);
             }
             if (floatingLabelAnimator.isRunning() || !floatingLabelVisible) {
                 textPaint.setAlpha((int) ((0.8 * floatingLabelPercent + 0.2) * baseAlpha * floatingLabelPercent));
@@ -425,7 +427,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         if (isSelected) {
             paint.setColor(highlightColor);
         } else {
-            paint.setColor(arrowColor);
+            paint.setColor(isEnabled() ? arrowColor : disabledColor);
         }
 
         Point point1 = selectorPoints[0];
@@ -452,17 +454,19 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                isSelected = true;
-                break;
+        if (isEnabled()) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    isSelected = true;
+                    break;
 
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_CANCEL:
-                isSelected = false;
-                break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    isSelected = false;
+                    break;
+            }
+            invalidate();
         }
-        invalidate();
         return super.onTouchEvent(event);
     }
 
@@ -594,6 +598,15 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         setError(error);
     }
 
+    @Override
+    public void setEnabled(boolean enabled) {
+        if(!enabled){
+            isSelected = false ;
+            invalidate();
+        }
+        super.setEnabled(enabled);
+    }
+
     public CharSequence getError() {
         return this.error;
     }
@@ -680,7 +693,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
 
         @Override
         public int getItemViewType(int position) {
-            position = hint != null ? position-1 : position ;
+            position = hint != null ? position - 1 : position;
             return (position == -1) ? HINT_TYPE : mSpinnerAdapter.getItemViewType(position);
         }
 
@@ -735,7 +748,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
             textView = (TextView) inflater.inflate(resid, parent, false);
 
             textView.setText(hint);
-            textView.setTextColor(baseColor);
+            textView.setTextColor(MaterialSpinner.this.isEnabled()? baseColor : disabledColor);
             textView.setTag(HINT_TYPE);
 
             return textView;
