@@ -39,7 +39,7 @@ In the xml :
         app:ms_highlightColor="@color/highlight"
         app:ms_errorColor="@color/error"
         app:ms_typeface="typeface.ttf"
-        app:ms_thickness=2
+        app:ms_thickness="2dp"
         app:ms_arrowColor="#0000FF"
         app:ms_arrowSize="16dp"
         app:ms_alignLabels="false"
