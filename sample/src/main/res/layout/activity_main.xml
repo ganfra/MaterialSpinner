@@ -26,7 +26,8 @@
             android:id="@+id/spinner2"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            app:ms_hint="hint" />
+            app:ms_hint="hint"
+            app:ms_hintColor="#0000FF" />
 
         <fr.ganfra.materialspinner.MaterialSpinner
             android:id="@+id/spinner3"

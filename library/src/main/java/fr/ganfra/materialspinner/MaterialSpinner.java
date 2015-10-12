@@ -88,6 +88,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
     private int disabledColor ;
     private CharSequence error;
     private CharSequence hint;
+    private int hintColor;
     private CharSequence floatingLabelText;
     private int floatingLabelColor;
     private boolean multiline;
@@ -160,6 +161,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         disabledColor = context.getResources().getColor(R.color.disabled_color);
         error = array.getString(R.styleable.MaterialSpinner_ms_error);
         hint = array.getString(R.styleable.MaterialSpinner_ms_hint);
+        hintColor = array.getColor(R.styleable.MaterialSpinner_ms_hintColor, baseColor);
         floatingLabelText = array.getString(R.styleable.MaterialSpinner_ms_floatingLabelText);
         floatingLabelColor = array.getColor(R.styleable.MaterialSpinner_ms_floatingLabelColor, baseColor);
         multiline = array.getBoolean(R.styleable.MaterialSpinner_ms_multiline, true);
@@ -542,6 +544,15 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         invalidate();
     }
 
+    public int getHintColor() {
+        return hintColor;
+    }
+
+    public void setHintColor(int hintColor) {
+        this.hintColor = hintColor;
+        invalidate();
+    }
+
     public int getErrorColor() {
         return errorColor;
     }
@@ -748,7 +759,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
             textView = (TextView) inflater.inflate(resid, parent, false);
 
             textView.setText(hint);
-            textView.setTextColor(MaterialSpinner.this.isEnabled()? baseColor : disabledColor);
+            textView.setTextColor(MaterialSpinner.this.isEnabled() ? hintColor : disabledColor);
             textView.setTag(HINT_TYPE);
 
             return textView;
