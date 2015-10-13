@@ -32,20 +32,23 @@ In the xml :
 ```xml
 <fr.ganfra.materialspinner.MaterialSpinner
         android:id="@+id/spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
         app:ms_multiline="false"
         app:ms_hint="hint"
+        app:ms_enableFloatingLabel="false"
+        app:ms_enableErrorLabel="false"
         app:ms_floatingLabelText="floating label"
         app:ms_baseColor="@color/base"
         app:ms_highlightColor="@color/highlight"
         app:ms_errorColor="@color/error"
         app:ms_typeface="typeface.ttf"
         app:ms_thickness="2dp"
-        app:ms_arrowColor="#0000FF"
+        app:ms_hintColor="@color/hint"
+        app:ms_arrowColor="@color/arrow"
         app:ms_arrowSize="16dp"
         app:ms_alignLabels="false"
-        app:ms_floatingLabelColor="#00FF00"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        app:ms_floatingLabelColor="@color/floating_label"/>
 ```
 You can set a hint and a floating label text. If no floating label text is provided, the hint will be set instead.
 
