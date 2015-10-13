@@ -188,6 +188,17 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
 
     }
 
+
+    @Override
+    public void setSelection(final int position) {
+        this.post(new Runnable() {
+            @Override
+            public void run() {
+                MaterialSpinner.super.setSelection(position);
+            }
+        });
+    }
+
     private void initPaintObjects() {
 
         int labelTextSize = getResources().getDimensionPixelSize(R.dimen.label_text_size);
