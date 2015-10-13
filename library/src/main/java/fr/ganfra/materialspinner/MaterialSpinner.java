@@ -684,8 +684,23 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         updateBottomPadding();
     }
 
+    @Override
+    public Object getItemAtPosition(int position) {
+        final SpinnerAdapter adapter = getAdapter();
+        if (hint != null) {
+            position++;
+        }
+        return (adapter == null || position < 0) ? null : adapter.getItem(position);
+    }
 
-
+    @Override
+    public long getItemIdAtPosition(int position) {
+        final SpinnerAdapter adapter = getAdapter();
+        if (hint != null) {
+            position++;
+        }
+        return (adapter == null || position < 0) ? INVALID_ROW_ID : adapter.getItemId(position);
+    }
 
     /*
      * **********************************************************************************
