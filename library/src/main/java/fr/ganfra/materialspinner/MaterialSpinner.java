@@ -399,10 +399,12 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
             } else {
                 //scrolling
                 canvas.drawText(error.toString(), startX + rightLeftSpinnerPadding - errorLabelPosX, startYErrorLabel, textPaint);
-                canvas.save();
-                canvas.translate(textPaint.measureText(error.toString()) + getWidth() / 2, 0);
-                canvas.drawText(error.toString(), startX + rightLeftSpinnerPadding - errorLabelPosX, startYErrorLabel, textPaint);
-                canvas.restore();
+                if (errorLabelPosX > 0) {
+                    canvas.save();
+                    canvas.translate(textPaint.measureText(error.toString()) + getWidth() / 2, 0);
+                    canvas.drawText(error.toString(), startX + rightLeftSpinnerPadding - errorLabelPosX, startYErrorLabel, textPaint);
+                    canvas.restore();
+                }
             }
 
         } else {
