@@ -17,5 +17,8 @@
         <attr name="ms_thickness_error" format="dimension"/>
         <attr name="ms_arrowSize" format="dimension"/>
         <attr name="ms_arrowColor" format="color"/>
+        <attr name="ms_enableFloatingLabel" format="boolean"/>
+        <attr name="ms_enableErrorLabel" format="boolean"/>
+
     </declare-styleable>
 </resources>

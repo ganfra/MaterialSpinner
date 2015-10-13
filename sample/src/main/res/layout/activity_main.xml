@@ -16,10 +16,10 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             app:ms_arrowColor="#0000FF"
+            app:ms_arrowSize="16dp"
             app:ms_floatingLabelColor="#00FF00"
             app:ms_floatingLabelText="floating label"
             app:ms_hint="hint"
-            app:ms_arrowSize="16dp"
             app:ms_multiline="true" />
 
         <fr.ganfra.materialspinner.MaterialSpinner
@@ -32,7 +32,9 @@
         <fr.ganfra.materialspinner.MaterialSpinner
             android:id="@+id/spinner3"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:ms_enableErrorLabel="false"
+            app:ms_enableFloatingLabel="false" />
 
         <fr.ganfra.materialspinner.MaterialSpinner
             android:id="@+id/spinner4"
