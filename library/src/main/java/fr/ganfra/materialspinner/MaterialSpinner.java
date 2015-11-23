@@ -100,6 +100,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
     private boolean enableErrorLabel;
     private boolean enableFloatingLabel;
 
+    private HintAdapter hintAdapter;
 
     /*
     * **********************************************************************************
@@ -369,7 +370,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
     }
 
     private boolean isSpinnerEmpty() {
-        return (getAdapter().getCount() == 0 && hint == null) || (getAdapter().getCount() == 1 && hint != null);
+        return (hintAdapter.getCount() == 0 && hint == null) || (hintAdapter.getCount() == 1 && hint != null);
     }
 
     /*
@@ -665,9 +666,14 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
 
     @Override
     public void setAdapter(SpinnerAdapter adapter) {
-        super.setAdapter(new HintAdapter(adapter, getContext()));
+        hintAdapter = new HintAdapter(adapter, getContext());
+        super.setAdapter(hintAdapter);
     }
 
+    @Override
+    public SpinnerAdapter getAdapter() {
+        return hintAdapter != null ? hintAdapter.getWrappedAdapter() : null;
+    }
 
     private float getFloatingLabelPercent() {
         return floatingLabelPercent;
@@ -696,20 +702,18 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
 
     @Override
     public Object getItemAtPosition(int position) {
-        final SpinnerAdapter adapter = getAdapter();
         if (hint != null) {
             position++;
         }
-        return (adapter == null || position < 0) ? null : adapter.getItem(position);
+        return (hintAdapter == null || position < 0) ? null : hintAdapter.getItem(position);
     }
 
     @Override
     public long getItemIdAtPosition(int position) {
-        final SpinnerAdapter adapter = getAdapter();
         if (hint != null) {
             position++;
         }
-        return (adapter == null || position < 0) ? INVALID_ROW_ID : adapter.getItemId(position);
+        return (hintAdapter == null || position < 0) ? INVALID_ROW_ID : hintAdapter.getItemId(position);
     }
 
     /*
@@ -795,6 +799,10 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
             textView.setTextColor(MaterialSpinner.this.isEnabled() ? hintColor : disabledColor);
             textView.setTag(HINT_TYPE);
             return textView;
+        }
+
+        private SpinnerAdapter getWrappedAdapter() {
+            return mSpinnerAdapter;
         }
     }
 }
