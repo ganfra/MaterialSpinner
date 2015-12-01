@@ -99,6 +99,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
     private float arrowSize;
     private boolean enableErrorLabel;
     private boolean enableFloatingLabel;
+    private boolean isRtl;
 
 
     /*
@@ -171,6 +172,7 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
         arrowSize = array.getDimension(R.styleable.MaterialSpinner_ms_arrowSize, dpToPx(DEFAULT_ARROW_WIDTH_DP));
         enableErrorLabel = array.getBoolean(R.styleable.MaterialSpinner_ms_enableErrorLabel, true);
         enableFloatingLabel = array.getBoolean(R.styleable.MaterialSpinner_ms_enableFloatingLabel, true);
+        isRtl = array.getBoolean(R.styleable.MaterialSpinner_ms_isRtl, false);
 
         String typefacePath = array.getString(R.styleable.MaterialSpinner_ms_typeface);
         if (typefacePath != null) {
@@ -437,7 +439,11 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
                 textPaint.setAlpha((int) ((0.8 * floatingLabelPercent + 0.2) * baseAlpha * floatingLabelPercent));
             }
             String textToDraw = floatingLabelText != null ? floatingLabelText.toString() : hint.toString();
-            canvas.drawText(textToDraw, startX + rightLeftSpinnerPadding, startYFloatingLabel, textPaint);
+            if (isRtl) {
+				canvas.drawText(textToDraw, getWidth() - rightLeftSpinnerPadding - textPaint.measureText(textToDraw), startYFloatingLabel, textPaint);
+			} else {
+				canvas.drawText(textToDraw, startX + rightLeftSpinnerPadding, startYFloatingLabel, textPaint);
+			}
         }
 
         drawSelector(canvas, getWidth() - rightLeftSpinnerPadding, getPaddingTop() + dpToPx(8));
@@ -638,6 +644,15 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
     public CharSequence getError() {
         return this.error;
     }
+
+    public void setRtl() {
+		isRtl = true;
+		invalidate();
+	}
+
+	public boolean isRtl() {
+		return isRtl;
+	}
 
     /**
      * @deprecated {use @link #setPaddingSafe(int, int, int, int)} to keep internal computation OK
