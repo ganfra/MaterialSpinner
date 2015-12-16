@@ -227,7 +227,11 @@ public class MaterialSpinner extends Spinner implements ValueAnimator.AnimatorUp
 
     @Override
     public int getSelectedItemPosition() {
-        return super.getSelectedItemPosition()-1;
+        return super.getSelectedItemPosition();
+    }
+
+    public Object getSelectedItem() {
+        return super.getItemAtPosition(getSelectedItemPosition()-1);
     }
 
     private void initPadding() {
