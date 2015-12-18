@@ -30,7 +30,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
 
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ITEMS);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ITEMS);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
@@ -50,7 +50,6 @@ public class MainActivity extends ActionBarActivity {
 
     private void initSpinnerOnlyHint() {
         spinner2 = (MaterialSpinner) findViewById(R.id.spinner2);
-        spinner2.setAdapter(adapter);
     }
 
     private void initSpinnerNoHintNoFloatingLabel() {
