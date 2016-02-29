@@ -8,6 +8,7 @@ import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatSpinner;
 import android.text.Layout;
 import android.text.StaticLayout;
@@ -154,14 +155,15 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
         TypedArray defaultArray = context.obtainStyledAttributes(new int[]{R.attr.colorControlNormal, R.attr.colorAccent});
         int defaultBaseColor = defaultArray.getColor(0, 0);
         int defaultHighlightColor = defaultArray.getColor(1, 0);
-        int defaultErrorColor = context.getResources().getColor(R.color.error_color);
+        int defaultErrorColor = ContextCompat.getColor(context, R.color.error_color);
+        int defaultDisabledColor = ContextCompat.getColor(context, R.color.disabled_color);
         defaultArray.recycle();
 
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.MaterialSpinner);
         baseColor = array.getColor(R.styleable.MaterialSpinner_ms_baseColor, defaultBaseColor);
         highlightColor = array.getColor(R.styleable.MaterialSpinner_ms_highlightColor, defaultHighlightColor);
         errorColor = array.getColor(R.styleable.MaterialSpinner_ms_errorColor, defaultErrorColor);
-        disabledColor = context.getResources().getColor(R.color.disabled_color);
+        disabledColor = array.getColor(R.styleable.MaterialSpinner_ms_disabledColor, defaultDisabledColor);
         error = array.getString(R.styleable.MaterialSpinner_ms_error);
         hint = array.getString(R.styleable.MaterialSpinner_ms_hint);
         hintColor = array.getColor(R.styleable.MaterialSpinner_ms_hintColor, baseColor);
