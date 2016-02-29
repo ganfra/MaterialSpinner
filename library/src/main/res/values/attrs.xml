@@ -19,7 +19,8 @@
         <attr name="ms_arrowColor" format="color"/>
         <attr name="ms_enableFloatingLabel" format="boolean"/>
         <attr name="ms_enableErrorLabel" format="boolean"/>
-        <attr name="ms_isRtl" format="boolean"/>
-
+        <attr name="ms_rtlFloatingLabel" format="boolean"/>
+        <attr name="ms_rtlError" format="boolean"/>
+        <attr name="ms_rtlText" format="boolean"/>
     </declare-styleable>
 </resources>
