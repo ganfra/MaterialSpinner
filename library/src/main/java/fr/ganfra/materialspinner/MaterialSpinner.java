@@ -579,6 +579,15 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
         invalidate();
     }
 
+    public float getHintTextSize() {
+        return hintTextSize;
+    }
+
+    public void setHintTextSize(float hintTextSize) {
+        this.hintTextSize = hintTextSize;
+        invalidate();
+    }
+
     public int getErrorColor() {
         return errorColor;
     }
