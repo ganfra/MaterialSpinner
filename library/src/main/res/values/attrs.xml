@@ -7,6 +7,7 @@
         <attr name="ms_error" format="string"/>
         <attr name="ms_hint" format="string"/>
         <attr name="ms_hintColor" format="color"/>
+        <attr name="ms_hintTextSize" format="dimension"/>
         <attr name="ms_floatingLabelText" format="string"/>
         <attr name="ms_floatingLabelColor" format="color"/>
         <attr name="ms_multiline" format="boolean"/>
