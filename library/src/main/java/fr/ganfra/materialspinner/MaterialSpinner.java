@@ -592,6 +592,7 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
 
     public void setDisabledColor(int disabledColor) {
         this.disabledColor = disabledColor;
+        invalidate();
     }
 
     public void setHint(CharSequence hint) {
@@ -628,6 +629,7 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
 
     public void setFloatingLabelColor(int floatingLabelColor) {
         this.floatingLabelColor = floatingLabelColor;
+        invalidate();
     }
 
     public boolean isMultiline() {
@@ -636,6 +638,7 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
 
     public void setMultiline(boolean multiline) {
         this.multiline = multiline;
+        invalidate();
     }
 
     public Typeface getTypeface() {
@@ -644,6 +647,10 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
 
     public void setTypeface(Typeface typeface) {
         this.typeface = typeface;
+        if (typeface != null) {
+            textPaint.setTypeface(typeface);
+        }
+        invalidate();
     }
 
     public boolean isAlignLabels() {
@@ -652,6 +659,8 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
 
     public void setAlignLabels(boolean alignLabels) {
         this.alignLabels = alignLabels;
+        rightLeftSpinnerPadding = alignLabels ? getResources().getDimensionPixelSize(R.dimen.right_left_spinner_padding) : 0;
+        invalidate();
     }
 
     public float getThickness() {
@@ -660,6 +669,7 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
 
     public void setThickness(float thickness) {
         this.thickness = thickness;
+        invalidate();
     }
 
     public float getThicknessError() {
@@ -668,6 +678,7 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
 
     public void setThicknessError(float thicknessError) {
         this.thicknessError = thicknessError;
+        invalidate();
     }
 
     public int getArrowColor() {
@@ -676,6 +687,7 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
 
     public void setArrowColor(int arrowColor) {
         this.arrowColor = arrowColor;
+        invalidate();
     }
 
     public float getArrowSize() {
@@ -684,6 +696,7 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
 
     public void setArrowSize(float arrowSize) {
         this.arrowSize = arrowSize;
+        invalidate();
     }
 
     public boolean isEnableErrorLabel() {
@@ -692,6 +705,8 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
 
     public void setEnableErrorLabel(boolean enableErrorLabel) {
         this.enableErrorLabel = enableErrorLabel;
+        updateBottomPadding();
+        invalidate();
     }
 
     public boolean isEnableFloatingLabel() {
@@ -700,6 +715,9 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
 
     public void setEnableFloatingLabel(boolean enableFloatingLabel) {
         this.enableFloatingLabel = enableFloatingLabel;
+        extraPaddingTop = enableFloatingLabel ? floatingLabelTopSpacing + floatingLabelInsideSpacing + floatingLabelBottomSpacing : floatingLabelBottomSpacing;
+        updateBottomPadding();
+        invalidate();
     }
 
     public void setError(CharSequence error) {
