@@ -586,6 +586,14 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
         invalidate();
     }
 
+    public int getDisabledColor() {
+        return disabledColor;
+    }
+
+    public void setDisabledColor(int disabledColor) {
+        this.disabledColor = disabledColor;
+    }
+
     public void setHint(CharSequence hint) {
         this.hint = hint;
         invalidate();
@@ -612,6 +620,86 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
 
     public CharSequence getFloatingLabelText() {
         return this.floatingLabelText;
+    }
+
+    public int getFloatingLabelColor() {
+        return floatingLabelColor;
+    }
+
+    public void setFloatingLabelColor(int floatingLabelColor) {
+        this.floatingLabelColor = floatingLabelColor;
+    }
+
+    public boolean isMultiline() {
+        return multiline;
+    }
+
+    public void setMultiline(boolean multiline) {
+        this.multiline = multiline;
+    }
+
+    public Typeface getTypeface() {
+        return typeface;
+    }
+
+    public void setTypeface(Typeface typeface) {
+        this.typeface = typeface;
+    }
+
+    public boolean isAlignLabels() {
+        return alignLabels;
+    }
+
+    public void setAlignLabels(boolean alignLabels) {
+        this.alignLabels = alignLabels;
+    }
+
+    public float getThickness() {
+        return thickness;
+    }
+
+    public void setThickness(float thickness) {
+        this.thickness = thickness;
+    }
+
+    public float getThicknessError() {
+        return thicknessError;
+    }
+
+    public void setThicknessError(float thicknessError) {
+        this.thicknessError = thicknessError;
+    }
+
+    public int getArrowColor() {
+        return arrowColor;
+    }
+
+    public void setArrowColor(int arrowColor) {
+        this.arrowColor = arrowColor;
+    }
+
+    public float getArrowSize() {
+        return arrowSize;
+    }
+
+    public void setArrowSize(float arrowSize) {
+        this.arrowSize = arrowSize;
+    }
+
+    public boolean isEnableErrorLabel() {
+        return enableErrorLabel;
+    }
+
+    public void setEnableErrorLabel(boolean enableErrorLabel) {
+        this.enableErrorLabel = enableErrorLabel;
+    }
+
+    public boolean isEnableFloatingLabel() {
+        return enableFloatingLabel;
+    }
+
+    public void setEnableFloatingLabel(boolean enableFloatingLabel) {
+        this.enableFloatingLabel = enableFloatingLabel;
     }
 
     public void setError(CharSequence error) {
