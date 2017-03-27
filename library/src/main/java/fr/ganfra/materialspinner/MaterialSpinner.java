@@ -586,6 +586,15 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
         invalidate();
     }
 
+    public int getDisabledColor() {
+        return disabledColor;
+    }
+
+    public void setDisabledColor(int disabledColor) {
+        this.disabledColor = disabledColor;
+        invalidate();
+    }
+
     public void setHint(CharSequence hint) {
         this.hint = hint;
         invalidate();
@@ -612,6 +621,103 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
 
     public CharSequence getFloatingLabelText() {
         return this.floatingLabelText;
+    }
+
+    public int getFloatingLabelColor() {
+        return floatingLabelColor;
+    }
+
+    public void setFloatingLabelColor(int floatingLabelColor) {
+        this.floatingLabelColor = floatingLabelColor;
+        invalidate();
+    }
+
+    public boolean isMultiline() {
+        return multiline;
+    }
+
+    public void setMultiline(boolean multiline) {
+        this.multiline = multiline;
+        invalidate();
+    }
+
+    public Typeface getTypeface() {
+        return typeface;
+    }
+
+    public void setTypeface(Typeface typeface) {
+        this.typeface = typeface;
+        if (typeface != null) {
+            textPaint.setTypeface(typeface);
+        }
+        invalidate();
+    }
+
+    public boolean isAlignLabels() {
+        return alignLabels;
+    }
+
+    public void setAlignLabels(boolean alignLabels) {
+        this.alignLabels = alignLabels;
+        rightLeftSpinnerPadding = alignLabels ? getResources().getDimensionPixelSize(R.dimen.right_left_spinner_padding) : 0;
+        invalidate();
+    }
+
+    public float getThickness() {
+        return thickness;
+    }
+
+    public void setThickness(float thickness) {
+        this.thickness = thickness;
+        invalidate();
+    }
+
+    public float getThicknessError() {
+        return thicknessError;
+    }
+
+    public void setThicknessError(float thicknessError) {
+        this.thicknessError = thicknessError;
+        invalidate();
+    }
+
+    public int getArrowColor() {
+        return arrowColor;
+    }
+
+    public void setArrowColor(int arrowColor) {
+        this.arrowColor = arrowColor;
+        invalidate();
+    }
+
+    public float getArrowSize() {
+        return arrowSize;
+    }
+
+    public void setArrowSize(float arrowSize) {
+        this.arrowSize = arrowSize;
+        invalidate();
+    }
+
+    public boolean isEnableErrorLabel() {
+        return enableErrorLabel;
+    }
+
+    public void setEnableErrorLabel(boolean enableErrorLabel) {
+        this.enableErrorLabel = enableErrorLabel;
+        updateBottomPadding();
+        invalidate();
+    }
+
+    public boolean isEnableFloatingLabel() {
+        return enableFloatingLabel;
+    }
+
+    public void setEnableFloatingLabel(boolean enableFloatingLabel) {
+        this.enableFloatingLabel = enableFloatingLabel;
+        extraPaddingTop = enableFloatingLabel ? floatingLabelTopSpacing + floatingLabelInsideSpacing + floatingLabelBottomSpacing : floatingLabelBottomSpacing;
+        updateBottomPadding();
+        invalidate();
     }
 
     public void setError(CharSequence error) {
