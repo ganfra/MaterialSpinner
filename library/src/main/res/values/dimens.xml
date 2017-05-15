@@ -8,7 +8,7 @@
     <dimen name="floating_label_bottom_spacing">8dp</dimen>
     <dimen name="floating_label_inside_spacing">12dp</dimen>
 
-    <dimen name="right_left_spinner_padding">8dp</dimen>
+    <dimen name="right_left_spinner_padding">0dp</dimen>
 
     <dimen name="label_text_size">12sp</dimen>
 
