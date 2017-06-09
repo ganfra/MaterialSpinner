@@ -35,6 +35,8 @@ In the xml :
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" 
         app:ms_multiline="false"
+        app:ms_dropDownHintView="@layout/my_custom_dropdown_hint_item_layout"
+        app:ms_hintView="@layout/my_custom_hint_item_layout""
         app:ms_hint="hint"
         app:ms_enableFloatingLabel="false"
         app:ms_enableErrorLabel="false"

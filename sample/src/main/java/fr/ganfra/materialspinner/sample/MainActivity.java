@@ -20,6 +20,7 @@ public class MainActivity extends ActionBarActivity {
     MaterialSpinner spinner3;
     MaterialSpinner spinner4;
     MaterialSpinner spinner5;
+    MaterialSpinner spinner6;
 
     private boolean shown = false;
 
@@ -39,7 +40,14 @@ public class MainActivity extends ActionBarActivity {
         initSpinnerNoHintNoFloatingLabel();
         initSpinnerMultiline();
         initSpinnerScrolling();
+        initSpinnerHintAndCustomHintView();
 
+    }
+
+    private void initSpinnerHintAndCustomHintView() {
+        spinner6 = (MaterialSpinner) findViewById(R.id.spinner6);
+        spinner6.setAdapter(adapter);
+        spinner4.setHint("Select an item");
     }
 
     private void initSpinnerHintAndFloatingLabel() {
