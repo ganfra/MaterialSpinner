@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="MaterialSpinner">
-        <attr name="ms_baseColor" format="integer"/>
-        <attr name="ms_highlightColor" format="integer"/>
-        <attr name="ms_errorColor" format="integer"/>
+        <attr name="ms_baseColor" format="color"/>
+        <attr name="ms_highlightColor" format="color"/>
+        <attr name="ms_errorColor" format="color"/>
         <attr name="ms_error" format="string"/>
         <attr name="ms_hint" format="string"/>
         <attr name="ms_hintColor" format="color"/>
