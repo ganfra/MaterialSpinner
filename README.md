@@ -76,7 +76,7 @@ You can choose to have a scrolling animation or to set the error message on mult
 
 ## License
 
-    Copyright 2015 François Ganard
+    Copyright 2017 François Ganard
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
