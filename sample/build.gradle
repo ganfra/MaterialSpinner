@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 26
+    buildToolsVersion '26.0.1'
 
     defaultConfig {
-        applicationId "fr.ganfra.materialspinner.sample"
-        minSdkVersion 9
-        targetSdkVersion 23
+        applicationId 'fr.ganfra.materialspinner.sample'
+        minSdkVersion 14
+        targetSdkVersion 26
         versionCode 4
-        versionName "1.1.0"
+        versionName '1.1.0'
     }
     buildTypes {
         release {
@@ -20,8 +20,6 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:appcompat-v7:26.0.2'
     compile project(':library')
-
 }
