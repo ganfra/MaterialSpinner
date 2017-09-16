@@ -62,6 +62,11 @@
             app:ms_hint="hint"
             app:ms_hintColor="#0000FF" />
 
+        <fr.ganfra.materialspinner.MaterialSpinner
+            android:id="@+id/spinner7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     MaterialSpinner spinner4;
     MaterialSpinner spinner5;
     MaterialSpinner spinner6;
+    MaterialSpinner spinner7;
 
     private boolean shown = false;
 
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         initSpinnerMultiline();
         initSpinnerScrolling();
         initSpinnerHintAndCustomHintView();
+        initEmptyArray();
 
     }
 
@@ -77,6 +79,11 @@ public class MainActivity extends AppCompatActivity {
         spinner5.setHint("Select an item");
     }
 
+    private void initEmptyArray() {
+        String[] emptyArray = {};
+        spinner7 = findViewById(R.id.spinner7);
+        spinner7.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, emptyArray));
+    }
 
     public void activateError(View view) {
         if (!shown) {
