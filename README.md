@@ -1,7 +1,7 @@
 # MaterialSpinner
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MaterialSpinner-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/1720)
 
-Spinner with Material Design - Down to API 9
+Spinner with Material Design
 
 This library provides you a Spinner with the Material style. You can use it like any regular Spinner. 
 Add floating label text, hint and error messages.
@@ -13,13 +13,12 @@ Add floating label text, hint and error messages.
 Use this dependency in your build.gradle file to reference this library in your project
 
 ```groovy
-compile 'com.github.ganfra:material-spinner:1.1.2'
+compile 'com.github.ganfra:material-spinner:2.0.0'
 ```
 
 If you use other libraries requiring nineoldandroids and appcompat-v7 like [MaterialEditText](https://github.com/rengwuxian/MaterialEditText/) make sure to exclude them :
 ```groovy
-compile ('com.github.ganfra:material-spinner:1.1.2'){
-        exclude group: 'com.nineoldandroids', module: 'library'
+compile ('com.github.ganfra:material-spinner:2.0.0'){
         exclude group: 'com.android.support', module: 'appcompat-v7'
 }
 ```
