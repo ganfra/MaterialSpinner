@@ -32,7 +32,7 @@ In the xml :
 ```xml
 <fr.ganfra.materialspinner.MaterialSpinner
         android:id="@+id/spinner"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" 
         app:ms_multiline="false"
         app:ms_dropDownHintView="@layout/my_custom_dropdown_hint_item_layout"
