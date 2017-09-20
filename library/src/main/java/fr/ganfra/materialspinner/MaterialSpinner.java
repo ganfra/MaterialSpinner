@@ -240,6 +240,10 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
         return super.getSelectedItemPosition();
     }
 
+    public Object getSelectedItem() {
+        return super.getItemAtPosition(getSelectedItemPosition()-1);
+    }
+
     private void initPadding() {
 
         innerPaddingTop = getPaddingTop();
@@ -814,8 +818,12 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
 
     @Override
     public void setAdapter(SpinnerAdapter adapter) {
-        hintAdapter = new HintAdapter(adapter, getContext());
-        super.setAdapter(hintAdapter);
+        if(adapter instanceof HintAdapter) {
+            super.setAdapter(adapter);
+        } else {
+            hintAdapter = new HintAdapter(adapter, getContext());
+            super.setAdapter(hintAdapter);
+        }
     }
 
     @Override
