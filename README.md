@@ -30,8 +30,9 @@ Many thanks to Matías Dumrauf to help me supporting this library!
 
 ## Usages
 
-In the xml : 
+In XML : 
 
+* Layout Resource
 ```xml
 <fr.ganfra.materialspinner.MaterialSpinner
         android:id="@+id/spinner"
@@ -55,10 +56,23 @@ In the xml :
         app:ms_alignLabels="false"
         app:ms_floatingLabelColor="@color/floating_label"/>
 ```
+
+* Colors Resource
+```xml
+    <color name="hint">#000</color>
+    <color name="arrow">#000</color>
+    <color name="floating_label">#000</color>
+    <color name="error">#000</color>
+    <color name="highlight">#000</color>
+    <color name="base">#000</color>
+```
+
 You can set a hint and a floating label text. If no floating label text is provided, the hint will be set instead.
 
 
-Java side, you use it like a regular spinner, setting an adapter to it.
+In Java:
+
+Use it like a regular spinner by setting an adapter to it.
 ```java
  String[] ITEMS = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6"};
  ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ITEMS);
