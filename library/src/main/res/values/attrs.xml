@@ -3,7 +3,7 @@
     <declare-styleable name="MaterialSpinner">
         <attr name="ms_baseColor" format="color"/>
         <attr name="ms_highlightColor" format="color"/>
-        <attr name="ms_errorColor" format="color"/>
+        <attr name="ms_errorColor" format="color|reference"/>
         <attr name="ms_error" format="string"/>
         <attr name="ms_hint" format="string"/>
         <attr name="ms_hintColor" format="color"/>
