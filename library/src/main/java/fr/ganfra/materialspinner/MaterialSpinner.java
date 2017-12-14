@@ -208,7 +208,7 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
         this.post(new Runnable() {
             @Override
             public void run() {
-                MaterialSpinner.super.setSelection(hint != null ? position + 1 : position);
+                MaterialSpinner.super.setSelection(position);
             }
         });
     }
