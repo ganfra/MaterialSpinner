@@ -240,7 +240,7 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
     }
 
     public Object getSelectedItem() {
-        return super.getItemAtPosition(getSelectedItemPosition()-1);
+        return super.getItemAtPosition(hint != null ? getSelectedItemPosition() - 1 : getSelectedItemPosition());
     }
 
     private void initPadding() {
