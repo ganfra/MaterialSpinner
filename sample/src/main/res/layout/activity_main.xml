@@ -67,6 +67,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <fr.ganfra.materialspinner.MaterialSpinner
+            android:id="@+id/spinner8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:ms_hint="hint"
+            app:ms_isHintSelectable="false"/>
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

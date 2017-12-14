@@ -101,6 +101,7 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
     private boolean enableFloatingLabel;
     private boolean alwaysShowFloatingLabel;
     private boolean isRtl;
+    private boolean isHintSelectable;
 
     private HintAdapter hintAdapter;
 
@@ -183,6 +184,7 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
         isRtl = array.getBoolean(R.styleable.MaterialSpinner_ms_isRtl, false);
         mHintView = array.getResourceId(R.styleable.MaterialSpinner_ms_hintView, android.R.layout.simple_spinner_item);
         mDropDownHintView = array.getResourceId(R.styleable.MaterialSpinner_ms_dropDownHintView, android.R.layout.simple_spinner_dropdown_item);
+        isHintSelectable = array.getBoolean(R.styleable.MaterialSpinner_ms_isHintSelectable, true);
 
         String typefacePath = array.getString(R.styleable.MaterialSpinner_ms_typeface);
         if (typefacePath != null) {
@@ -206,7 +208,7 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
         this.post(new Runnable() {
             @Override
             public void run() {
-                MaterialSpinner.super.setSelection(position);
+                MaterialSpinner.super.setSelection(hint != null ? position + 1 : position);
             }
         });
     }
@@ -385,7 +387,7 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
     }
 
     private boolean isSpinnerEmpty() {
-        return (hintAdapter.getCount() == 0 && hint == null) || (hintAdapter.getCount() == 1 && hint != null);
+        return (hintAdapter.getCount() == 0 && (hint == null || !isHintSelectable)) || (hintAdapter.getCount() == 1 && hint != null);
     }
 
     /*
@@ -791,6 +793,16 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
 		return isRtl;
 	}
 
+
+	public void setHintSelectable(boolean isHintSelectable){
+        this.isHintSelectable = isHintSelectable;
+        invalidate();
+    }
+
+    public boolean isHintSelectable(){
+	    return isHintSelectable;
+    }
+
     /**
      * @deprecated {use @link #setPaddingSafe(int, int, int, int)} to keep internal computation OK
      */
@@ -947,7 +959,9 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
         }
 
         private View getHintView(final View convertView, final ViewGroup parent, final boolean isDropDownView) {
-
+            if(isDropDownView && !isHintSelectable){
+                return new View(mContext);
+            }
             final LayoutInflater inflater = LayoutInflater.from(mContext);
             final int resid = isDropDownView ? mDropDownHintView : mHintView;
             final TextView textView = (TextView) inflater.inflate(resid, parent, false);
