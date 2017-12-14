@@ -2,7 +2,9 @@ package fr.ganfra.materialspinner.sample;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     MaterialSpinner spinner5;
     MaterialSpinner spinner6;
     MaterialSpinner spinner7;
+    MaterialSpinner spinner8;
 
     private boolean shown = false;
 
@@ -43,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         initSpinnerScrolling();
         initSpinnerHintAndCustomHintView();
         initEmptyArray();
-
+        initHintNotSelectable();
     }
 
     private void initSpinnerHintAndCustomHintView() {
@@ -83,6 +86,25 @@ public class MainActivity extends AppCompatActivity {
         String[] emptyArray = {};
         spinner7 = findViewById(R.id.spinner7);
         spinner7.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, emptyArray));
+    }
+
+    private void initHintNotSelectable(){
+        spinner8 = findViewById(R.id.spinner8);
+        spinner8.setAdapter(adapter);
+        spinner8.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(spinner8.getSelectedItem() != null) {
+                    Log.d("SELECTED_ITEM", spinner8.getSelectedItem().toString());
+                    Log.d("SELECTED_ITEM", ITEMS[i]);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Log.d("SELECTED_ITEM", "No thing selected");
+            }
+        });
     }
 
     public void activateError(View view) {
