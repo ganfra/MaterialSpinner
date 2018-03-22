@@ -101,6 +101,7 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
     private boolean enableFloatingLabel;
     private boolean alwaysShowFloatingLabel;
     private boolean isRtl;
+    private int backgroundColor;
 
     private HintAdapter hintAdapter;
 
@@ -147,7 +148,8 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
         initOnItemSelectedListener();
         setMinimumHeight(getPaddingTop() + getPaddingBottom() + minContentHeight);
         //Erase the drawable selector not to be affected by new size (extra paddings)
-        setBackgroundResource(R.drawable.my_background);
+        // setBackgroundResource(R.drawable.my_background);
+        setBackgroundColor(backgroundColor);
 
     }
 
@@ -183,7 +185,7 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
         isRtl = array.getBoolean(R.styleable.MaterialSpinner_ms_isRtl, false);
         mHintView = array.getResourceId(R.styleable.MaterialSpinner_ms_hintView, android.R.layout.simple_spinner_item);
         mDropDownHintView = array.getResourceId(R.styleable.MaterialSpinner_ms_dropDownHintView, android.R.layout.simple_spinner_dropdown_item);
-
+        backgroundColor = array.getColor(R.styleable.MaterialSpinner_ms_backgroundColor, getResources().getColor(android.R.color.transparent));
         String typefacePath = array.getString(R.styleable.MaterialSpinner_ms_typeface);
         if (typefacePath != null) {
             typeface = Typeface.createFromAsset(getContext().getAssets(), typefacePath);
@@ -853,6 +855,15 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
     private void setCurrentNbErrorLines(float currentNbErrorLines) {
         this.currentNbErrorLines = currentNbErrorLines;
         updateBottomPadding();
+    }
+
+    public int getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    @Override
+    public void setBackgroundColor(int backgroundColor) {
+        this.backgroundColor = backgroundColor;
     }
 
     @Override

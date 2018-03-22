@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     MaterialSpinner spinner5;
     MaterialSpinner spinner6;
     MaterialSpinner spinner7;
+    MaterialSpinner spinner8;
 
     private boolean shown = false;
 
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         initSpinnerScrolling();
         initSpinnerHintAndCustomHintView();
         initEmptyArray();
+        initSpinnerWithBackground();
 
     }
 
@@ -83,6 +85,12 @@ public class MainActivity extends AppCompatActivity {
         String[] emptyArray = {};
         spinner7 = findViewById(R.id.spinner7);
         spinner7.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, emptyArray));
+    }
+
+    private void initSpinnerWithBackground() {
+        spinner8 = findViewById(R.id.spinner8);
+        spinner8.setAdapter(adapter);
+        spinner8.setPaddingSafe(0, 0, 0, 0);
     }
 
     public void activateError(View view) {

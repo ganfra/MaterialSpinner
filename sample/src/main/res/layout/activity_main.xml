@@ -67,6 +67,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <fr.ganfra.materialspinner.MaterialSpinner
+            android:id="@+id/spinner8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:ms_arrowColor="#0000FF"
+            app:ms_arrowSize="16dp"
+            app:ms_floatingLabelColor="#00FF00"
+            app:ms_floatingLabelText="floating label"
+            app:ms_hint="hint"
+            app:ms_multiline="true"
+            app:ms_backgroundColor="@android:color/holo_blue_bright"/>
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
