@@ -857,6 +857,15 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
         updateBottomPadding();
     }
 
+    public int getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    @Override
+    public void setBackgroundColor(int backgroundColor) {
+        this.backgroundColor = backgroundColor;
+    }
+
     @Override
     public Object getItemAtPosition(int position) {
         if (hint != null) {
