@@ -24,6 +24,7 @@
         <attr name="ms_isRtl" format="boolean"/>
         <attr name="ms_hintView" format="reference"/>
         <attr name="ms_dropDownHintView" format="reference"/>
+        <attr name="ms_backgroundColor" format="color"/>
 
     </declare-styleable>
 </resources>
