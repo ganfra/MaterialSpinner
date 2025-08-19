@@ -181,7 +181,7 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
         enableFloatingLabel = array.getBoolean(R.styleable.MaterialSpinner_ms_enableFloatingLabel, true);
         alwaysShowFloatingLabel = array.getBoolean(R.styleable.MaterialSpinner_ms_alwaysShowFloatingLabel, false);
         isRtl = array.getBoolean(R.styleable.MaterialSpinner_ms_isRtl, false);
-        mHintView = array.getResourceId(R.styleable.MaterialSpinner_ms_hintView, android.R.layout.simple_spinner_item);
+        mHintView = array.getResourceId(R.styleable.MaterialSpinner_ms_hintView, android.R.layout.simple_spinner_dropdown_item);
         mDropDownHintView = array.getResourceId(R.styleable.MaterialSpinner_ms_dropDownHintView, android.R.layout.simple_spinner_dropdown_item);
 
         String typefacePath = array.getString(R.styleable.MaterialSpinner_ms_typeface);
